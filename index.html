@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel First Crown — Luxury Redefined</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#9B7A2F;--cream:#F8F4EE;--dark:#1A1510;--dark2:#2C2416;--mid:#4A3C28;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--dark);color:var(--cream);overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--dark);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+.announce-bar{background:var(--gold);color:var(--dark);text-align:center;padding:10px;font-size:0.63rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;position:relative;z-index:1001;}
+.announce-bar span{margin:0 16px;}
+nav{position:fixed;top:36px;width:100%;z-index:1000;padding:18px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(26,21,16,0.97),transparent);transition:all 0.4s;}
+nav.scrolled{top:0;background:rgba(26,21,16,0.98);box-shadow:0 2px 30px rgba(0,0,0,0.6);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;letter-spacing:4px;color:var(--gold);text-decoration:none;}
+.nav-logo span{color:var(--cream);}
+.nav-links{display:flex;gap:26px;list-style:none;}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:0.63rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.nav-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 20px;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.nav-btn:hover,.nav-btn.solid{background:var(--gold);color:var(--dark);}
+#hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,0.1),transparent 60%),linear-gradient(135deg,#080604,#1a1208 40%,#2c1e0a 70%,#1a1510);}
+.hero-pattern{position:absolute;inset:0;opacity:0.035;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:30px 30px;}
+.hero-content{text-align:center;position:relative;z-index:2;animation:fadeUp 1.2s ease forwards;}
+.hero-tag{font-size:0.6rem;letter-spacing:7px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:block;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,8vw,7rem);font-weight:300;line-height:1.05;color:var(--cream);}
+.hero-title em{font-style:italic;color:var(--gold);display:block;font-size:1.15em;}
+.hero-divider{width:80px;height:1px;background:var(--gold);margin:28px auto;opacity:0.6;}
+.hero-sub{font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;color:rgba(248,244,238,0.55);margin-bottom:48px;}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:var(--dark);padding:15px 42px;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;cursor:pointer;border:none;transition:all 0.3s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--cream);padding:15px 42px;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(248,244,238,0.4);transition:all 0.3s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-scroll{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;font-size:0.56rem;letter-spacing:4px;text-transform:uppercase;color:rgba(248,244,238,0.35);cursor:pointer;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease infinite;}
+.quick-search{background:rgba(26,21,16,0.97);border-top:1px solid rgba(201,168,76,0.2);border-bottom:1px solid rgba(201,168,76,0.15);padding:0 60px;display:flex;align-items:stretch;}
+.qs-field{flex:1;padding:16px 22px;border-right:1px solid rgba(201,168,76,0.12);display:flex;flex-direction:column;gap:4px;}
+.qs-label{font-size:0.52rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+.qs-field input,.qs-field select{background:transparent;border:none;outline:none;color:var(--cream);font-family:'Montserrat',sans-serif;font-size:0.76rem;width:100%;}
+.qs-field select option{background:var(--dark2);}
+.qs-field input::placeholder{color:rgba(248,244,238,0.38);}
+.qs-btn{background:var(--gold);color:var(--dark);border:none;padding:0 36px;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background 0.3s;white-space:nowrap;}
+.qs-btn:hover{background:var(--gold-light);}
+section{padding:96px 60px;}
+.section-label{font-size:0.57rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.2;color:var(--cream);margin-bottom:18px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-desc{font-size:0.77rem;line-height:1.9;color:rgba(248,244,238,0.56);max-width:520px;}
+#about{background:linear-gradient(135deg,var(--dark2),var(--dark));display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-image-wrap{position:relative;height:540px;}
+.about-img-main{width:75%;height:80%;position:absolute;top:0;left:0;background:linear-gradient(135deg,#3d2f1a,#5c4425);display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:0.22;border:1px solid rgba(201,168,76,0.12);}
+.about-img-accent{width:55%;height:55%;position:absolute;bottom:0;right:0;background:linear-gradient(135deg,#4a3822,#2c2416);border:3px solid var(--dark);display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:0.38;}
+.about-gold-bar{position:absolute;left:-18px;top:50%;width:4px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:46px;}
+.stat-item{text-align:center;padding:18px;border:1px solid rgba(201,168,76,0.1);}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--gold);font-weight:300;display:block;}
+.stat-label{font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,244,238,0.42);margin-top:4px;}
+#rooms{background:var(--dark);}
+.rooms-header{text-align:center;margin-bottom:66px;}
+.rooms-header .section-desc{margin:0 auto;}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.room-card{position:relative;overflow:hidden;cursor:pointer;height:420px;}
+.room-card:first-child{grid-column:span 2;}
+.room-bg{position:absolute;inset:0;transition:transform 0.7s ease;}
+.room-card:hover .room-bg{transform:scale(1.06);}
+.room-bg-1{background:linear-gradient(135deg,#3d2a18,#7a5535);}
+.room-bg-2{background:linear-gradient(135deg,#2a3d18,#557a35);}
+.room-bg-3{background:linear-gradient(135deg,#18253d,#35527a);}
+.room-bg-4{background:linear-gradient(135deg,#3d1828,#7a3558);}
+.room-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,21,16,0.97) 0%,rgba(26,21,16,0.05) 60%,transparent);}
+.room-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:4rem;opacity:0.07;}
+.room-info{position:absolute;bottom:0;left:0;right:0;padding:30px;transform:translateY(65px);transition:transform 0.4s ease;}
+.room-card:hover .room-info{transform:translateY(0);}
+.room-type{font-size:0.56rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block;}
+.room-name{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:300;color:var(--cream);margin-bottom:9px;}
+.room-meta{display:flex;gap:14px;margin-bottom:10px;}
+.room-meta span{font-size:0.58rem;color:rgba(248,244,238,0.48);}
+.room-price{font-size:0.68rem;color:rgba(248,244,238,0.58);letter-spacing:2px;}
+.room-price strong{color:var(--gold);font-size:1.2rem;font-family:'Cormorant Garamond',serif;}
+.room-btn{display:inline-block;margin-top:14px;background:var(--gold);color:var(--dark);padding:10px 24px;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;font-family:'Montserrat',sans-serif;opacity:0;transition:opacity 0.3s 0.1s;}
+.room-card:hover .room-btn{opacity:1;}
+#offers{background:linear-gradient(135deg,#0d0a06,#1e1508,#0d0a06);}
+.offers-header{text-align:center;margin-bottom:58px;}
+.offers-header .section-desc{margin:0 auto;}
+.offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.offer-card{border:1px solid rgba(201,168,76,0.14);background:rgba(255,255,255,0.02);padding:34px 28px;position:relative;overflow:hidden;transition:all 0.4s;}
+.offer-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s;}
+.offer-card:hover{border-color:rgba(201,168,76,0.38);transform:translateY(-4px);}
+.offer-card:hover::before{height:100%;}
+.offer-badge{display:inline-block;background:var(--gold);color:var(--dark);font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;padding:6px 12px;margin-bottom:16px;}
+.offer-title{font-family:'Cormorant Garamond',serif;font-size:1.32rem;font-weight:300;color:var(--cream);margin-bottom:9px;}
+.offer-desc{font-size:0.7rem;color:rgba(248,244,238,0.52);line-height:1.8;margin-bottom:18px;}
+.offer-link{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;display:flex;align-items:center;gap:8px;transition:gap 0.3s;}
+.offer-link:hover{gap:14px;}
+#dining{background:var(--dark);}
+.dining-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.dining-visual{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.dining-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:3rem;border:1px solid rgba(201,168,76,0.1);transition:all 0.4s;cursor:pointer;position:relative;overflow:hidden;}
+.dining-img:hover{border-color:var(--gold);}
+.dining-img:first-child{grid-row:span 2;height:408px;font-size:4rem;}
+.dining-img-bg{position:absolute;inset:0;opacity:0.3;}
+.di1{background:linear-gradient(135deg,#3d1a0d,#7a3a1a);}
+.di2{background:linear-gradient(135deg,#1a3d0d,#3a7a1a);}
+.di3{background:linear-gradient(135deg,#0d1a3d,#1a3a7a);}
+.dining-label{position:absolute;bottom:14px;left:14px;font-size:0.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.dining-list{list-style:none;margin:26px 0;}
+.dining-list li{padding:14px 0;border-bottom:1px solid rgba(201,168,76,0.1);display:flex;justify-content:space-between;align-items:center;}
+.dining-list li:last-child{border-bottom:none;}
+.dl-name{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--cream);}
+.dl-type{font-size:0.56rem;letter-spacing:2px;text-transform:uppercase;color:rgba(248,244,238,0.38);}
+.dl-tag{font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.28);padding:4px 10px;}
+#gallery{background:var(--dark2);}
+.gallery-header{text-align:center;margin-bottom:58px;}
+.gallery-filter{display:flex;justify-content:center;gap:6px;margin-bottom:46px;flex-wrap:wrap;}
+.filter-btn{background:transparent;border:1px solid rgba(201,168,76,0.28);color:rgba(248,244,238,0.48);padding:7px 20px;font-family:'Montserrat',sans-serif;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.filter-btn.active,.filter-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.gallery-masonry{columns:4;column-gap:8px;}
+.gallery-item{break-inside:avoid;margin-bottom:8px;overflow:hidden;position:relative;cursor:pointer;}
+.gallery-item-inner{width:100%;display:block;transition:transform 0.5s ease;}
+.gallery-item:hover .gallery-item-inner{transform:scale(1.05);}
+.g-overlay{position:absolute;inset:0;background:rgba(26,21,16,0.7);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;}
+.gallery-item:hover .g-overlay{opacity:1;}
+.g-box{width:100%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,0.07);}
+#amenities{background:var(--dark);}
+.amenities-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px;}
+.amenity-card{padding:34px 24px;text-align:center;border:1px solid rgba(201,168,76,0.1);background:rgba(255,255,255,0.018);transition:all 0.4s;position:relative;overflow:hidden;}
+.amenity-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);opacity:0;transition:opacity 0.4s;}
+.amenity-card:hover{border-color:var(--gold);transform:translateY(-6px);}
+.amenity-card:hover::before{opacity:1;}
+.amenity-icon{font-size:1.9rem;margin-bottom:16px;display:block;}
+.amenity-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);margin-bottom:9px;}
+.amenity-desc{font-size:0.68rem;color:rgba(248,244,238,0.46);line-height:1.7;}
+#experiences{background:linear-gradient(135deg,#0e0a05,#1e1508);}
+.exp-header{text-align:center;margin-bottom:56px;}
+.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.exp-card{position:relative;height:360px;overflow:hidden;cursor:pointer;}
+.exp-bg{position:absolute;inset:0;transition:transform 0.6s;}
+.exp-card:hover .exp-bg{transform:scale(1.08);}
+.exp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,21,16,0.95) 0%,rgba(26,21,16,0.05) 60%);}
+.exp-bg-1{background:linear-gradient(160deg,#2d1a0a,#5c3510);}
+.exp-bg-2{background:linear-gradient(160deg,#0a1a2d,#10355c);}
+.exp-bg-3{background:linear-gradient(160deg,#1a2d0a,#355c10);}
+.exp-bg-4{background:linear-gradient(160deg,#2d0a1a,#5c1035);}
+.exp-content{position:absolute;bottom:0;padding:26px;width:100%;}
+.exp-icon{font-size:2.4rem;display:block;margin-bottom:12px;opacity:0.8;}
+.exp-name{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--cream);margin-bottom:5px;}
+.exp-sub{font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+#wedding{background:var(--dark2);display:grid;grid-template-columns:1.2fr 1fr;gap:0;}
+.wedding-visual{background:linear-gradient(135deg,#2d1420,#5c2840,#2d1420);display:flex;align-items:center;justify-content:center;font-size:6rem;min-height:500px;position:relative;overflow:hidden;}
+.wedding-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.07) 0%,transparent 70%);}
+.wedding-text{padding:76px 66px;display:flex;flex-direction:column;justify-content:center;}
+.wedding-features{list-style:none;margin:28px 0;}
+.wedding-features li{padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.1);font-size:0.73rem;color:rgba(248,244,238,0.62);display:flex;align-items:center;gap:12px;}
+.wf-icon{color:var(--gold);width:20px;}
+.wedding-pkg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;}
+.wpkg{border:1px solid rgba(201,168,76,0.18);padding:18px;text-align:center;transition:all 0.3s;cursor:pointer;}
+.wpkg:hover{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.wpkg-name{font-family:'Cormorant Garamond',serif;font-size:0.98rem;color:var(--cream);margin-bottom:4px;}
+.wpkg-price{font-size:0.62rem;color:var(--gold);letter-spacing:2px;}
+#loyalty{background:var(--dark);position:relative;overflow:hidden;}
+#loyalty::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.04) 0%,transparent 70%);}
+.loyalty-header{text-align:center;margin-bottom:56px;}
+.loyalty-header .section-desc{margin:0 auto;}
+.tiers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:56px;}
+.tier-card{border:1px solid rgba(201,168,76,0.12);padding:32px 22px;text-align:center;position:relative;transition:all 0.4s;overflow:hidden;}
+.tier-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--tier-color,var(--gold));transform:scaleX(0);transition:transform 0.4s;}
+.tier-card:hover{border-color:var(--tier-color,var(--gold));transform:translateY(-5px);}
+.tier-card:hover::after,.tier-card.featured::after{transform:scaleX(1);}
+.tier-card.featured{border-color:var(--gold);background:rgba(201,168,76,0.035);}
+.tier-crown{font-size:1.9rem;margin-bottom:14px;display:block;}
+.tier-name{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;margin-bottom:7px;}
+.tier-points{font-size:0.57rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,244,238,0.42);margin-bottom:18px;}
+.tier-perks{list-style:none;text-align:left;}
+.tier-perks li{font-size:0.66rem;color:rgba(248,244,238,0.58);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px;}
+.tier-perks li::before{content:'✓';color:var(--tier-color,var(--gold));font-size:0.68rem;}
+.loyalty-cta{text-align:center;padding:46px;border:1px solid rgba(201,168,76,0.14);background:rgba(255,255,255,0.018);}
+.loyalty-cta h3{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:300;color:var(--cream);margin-bottom:10px;}
+.loyalty-cta p{font-size:0.73rem;color:rgba(248,244,238,0.52);margin-bottom:28px;}
+.points-counter{display:flex;justify-content:center;gap:38px;margin-bottom:28px;}
+.pc-item{text-align:center;}
+.pc-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);display:block;}
+.pc-label{font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,244,238,0.38);}
+#wellness{background:linear-gradient(135deg,var(--dark2),var(--dark));}
+.wellness-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.wellness-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.wellness-card{border:1px solid rgba(201,168,76,0.1);padding:28px;transition:all 0.3s;cursor:pointer;}
+.wellness-card:hover{border-color:var(--gold);background:rgba(201,168,76,0.028);}
+.wc-icon{font-size:1.5rem;margin-bottom:12px;display:block;}
+.wc-name{font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:var(--cream);margin-bottom:6px;}
+.wc-desc{font-size:0.66rem;color:rgba(248,244,238,0.43);line-height:1.65;}
+.wellness-tagline{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:rgba(248,244,238,0.58);line-height:1.5;margin:22px 0;border-left:3px solid var(--gold);padding-left:22px;}
+#booking{background:linear-gradient(135deg,#1e1508,#2c1f0a 50%,#1a1510);position:relative;overflow:hidden;}
+.booking-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:76px;align-items:center;}
+.booking-form{background:rgba(255,255,255,0.028);border:1px solid rgba(201,168,76,0.14);padding:46px 38px;}
+.form-row{margin-bottom:20px;}
+.form-row label{display:block;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:rgba(255,255,255,0.038);border:1px solid rgba(201,168,76,0.17);color:var(--cream);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:0.76rem;outline:none;transition:border-color 0.3s;appearance:none;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--gold);}
+.form-row input::placeholder,.form-row textarea::placeholder{color:rgba(248,244,238,0.28);}
+.form-row select option{background:var(--dark2);color:var(--cream);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-submit{width:100%;background:var(--gold);color:var(--dark);border:none;padding:16px;font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all 0.3s;margin-top:8px;}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-2px);}
+.booking-perks{display:flex;gap:12px;flex-direction:column;margin-top:14px;}
+.bp-item{display:flex;gap:12px;align-items:center;font-size:0.68rem;color:rgba(248,244,238,0.58);}
+.bp-item .tick{color:var(--gold);}
+#payment{background:var(--dark2);}
+.payment-inner{max-width:840px;margin:0 auto;}
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px;}
+.pay-card{border:1px solid rgba(201,168,76,0.14);padding:26px 20px;text-align:center;background:rgba(255,255,255,0.018);transition:all 0.3s;cursor:pointer;}
+.pay-card:hover,.pay-card.active{border-color:var(--gold);background:rgba(201,168,76,0.048);}
+.pay-icon{font-size:1.8rem;margin-bottom:12px;display:block;}
+.pay-name{font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:var(--cream);margin-bottom:5px;}
+.pay-desc{font-size:0.6rem;color:rgba(248,244,238,0.36);}
+.payment-form-wrap{margin-top:42px;border:1px solid rgba(201,168,76,0.14);padding:38px;background:rgba(255,255,255,0.018);display:none;}
+.payment-form-wrap.visible{display:block;}
+.pay-secure{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 16px;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.order-summary{background:rgba(255,255,255,0.028);border:1px solid rgba(201,168,76,0.14);padding:26px;margin-bottom:22px;display:none;}
+.os-title{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--cream);margin-bottom:14px;}
+.os-row{display:flex;justify-content:space-between;font-size:0.68rem;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(248,244,238,0.58);}
+.os-row.total{color:var(--gold);font-weight:600;border-bottom:none;padding-top:12px;}
+#testimonials{background:var(--dark);}
+.testi-header{text-align:center;margin-bottom:66px;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.testi-card{padding:34px 28px;border:1px solid rgba(201,168,76,0.1);background:rgba(255,255,255,0.018);transition:border-color 0.3s;}
+.testi-card:hover{border-color:rgba(201,168,76,0.34);}
+.testi-stars{color:var(--gold);font-size:0.92rem;margin-bottom:16px;letter-spacing:3px;}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:1.02rem;font-style:italic;line-height:1.75;color:rgba(248,244,238,0.78);margin-bottom:20px;}
+.testi-author{display:flex;align-items:center;gap:13px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--mid));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--cream);}
+.testi-name{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--cream);}
+.testi-country{font-size:0.56rem;color:rgba(248,244,238,0.36);margin-top:2px;}
+.testi-verified{font-size:0.52rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+#newsletter{background:var(--gold);padding:66px 60px;}
+.nl-inner{max-width:680px;margin:0 auto;text-align:center;}
+.nl-inner h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--dark);margin-bottom:12px;}
+.nl-inner p{font-size:0.73rem;color:rgba(26,21,16,0.62);margin-bottom:34px;}
+.nl-form{display:flex;gap:0;max-width:460px;margin:0 auto;}
+.nl-input{flex:1;padding:15px 20px;background:rgba(26,21,16,0.1);border:1px solid rgba(26,21,16,0.18);color:var(--dark);font-family:'Montserrat',sans-serif;font-size:0.78rem;outline:none;}
+.nl-input::placeholder{color:rgba(26,21,16,0.42);}
+.nl-submit{background:var(--dark);color:var(--gold);border:none;padding:15px 28px;font-family:'Montserrat',sans-serif;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background 0.3s;white-space:nowrap;}
+.nl-submit:hover{background:#2c2416;}
+#contact{background:linear-gradient(135deg,var(--dark2),var(--dark));display:grid;grid-template-columns:1fr 1fr;gap:76px;}
+.contact-detail{display:flex;align-items:flex-start;gap:18px;margin-bottom:26px;}
+.contact-icon{width:42px;height:42px;border:1px solid rgba(201,168,76,0.28);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:var(--gold);}
+.contact-text h4{font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.contact-text p{font-size:0.75rem;color:rgba(248,244,238,0.55);line-height:1.62;}
+.social-links{display:flex;gap:10px;margin-top:28px;}
+.sl-btn{width:40px;height:40px;border:1px solid rgba(201,168,76,0.22);display:flex;align-items:center;justify-content:center;font-size:0.95rem;cursor:pointer;transition:all 0.3s;text-decoration:none;color:var(--cream);}
+.sl-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);}
+footer{background:#0a0804;padding:66px 60px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:46px;border-top:1px solid rgba(201,168,76,0.1);}
+.footer-brand .nav-logo{display:inline-block;margin-bottom:16px;font-size:1.35rem;}
+.footer-brand p{font-size:0.68rem;line-height:1.85;color:rgba(248,244,238,0.36);max-width:250px;}
+.footer-awards{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.award-badge{border:1px solid rgba(201,168,76,0.18);padding:7px 12px;font-size:0.52rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.footer-col h5{font-size:0.56rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:9px;}
+.footer-col ul li a{color:rgba(248,244,238,0.36);text-decoration:none;font-size:0.7rem;transition:color 0.3s;}
+.footer-col ul li a:hover{color:var(--gold);}
+.footer-bottom{background:#0a0804;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.04);}
+.footer-bottom p{font-size:0.6rem;color:rgba(248,244,238,0.26);letter-spacing:1px;}
+.modal{position:fixed;inset:0;z-index:9999;background:rgba(8,6,4,0.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal.open{opacity:1;pointer-events:all;}
+.modal-content{background:var(--dark2);border:1px solid rgba(201,168,76,0.18);padding:46px;max-width:500px;width:90%;position:relative;transform:translateY(20px);transition:transform 0.3s;}
+.modal.open .modal-content{transform:translateY(0);}
+.modal-close{position:absolute;top:18px;right:18px;background:none;border:none;color:rgba(248,244,238,0.32);font-size:1.35rem;cursor:pointer;transition:color 0.3s;}
+.modal-close:hover{color:var(--gold);}
+.notif{position:fixed;bottom:28px;right:28px;z-index:99999;background:var(--gold);color:var(--dark);padding:15px 24px;font-family:'Montserrat',sans-serif;font-size:0.66rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;transform:translateX(200%);transition:transform 0.4s ease;max-width:310px;box-shadow:0 8px 28px rgba(0,0,0,0.4);}
+.notif.show{transform:translateX(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scrollPulse{0%,100%{opacity:0.33;}50%{opacity:1;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s ease,transform 0.75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:1024px){.offers-grid,.tiers-grid,.exp-grid,.amenities-grid{grid-template-columns:repeat(2,1fr);}#about,.dining-inner,.wellness-inner,.booking-inner,#contact,#wedding{grid-template-columns:1fr;gap:36px;}.rooms-grid{grid-template-columns:1fr;}.room-card:first-child{grid-column:span 1;}footer{grid-template-columns:1fr 1fr;gap:28px;}.gallery-masonry{columns:2;}.testi-grid,.payment-methods{grid-template-columns:1fr;}}
+@media(max-width:768px){.announce-bar{display:none;}nav{top:0;padding:13px 18px;}.nav-links{display:none;}section{padding:54px 22px;}.quick-search{flex-direction:column;padding:0;}.qs-btn{padding:16px;}.nl-form{flex-direction:column;}.wedding-pkg{grid-template-columns:1fr;}.offers-grid,.exp-grid,.tiers-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="announce-bar"><span>🎉 20% OFF Suite Bookings This Weekend</span><span>|</span><span>🏆 India's Best Luxury Hotel 2024</span><span>|</span><span>✈️ Free Airport Transfer on 2+ Night Stay</span></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">FIRST <span>CROWN</span></a>
+  <ul class="nav-links">
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#experiences">Experiences</a></li>
+    <li><a href="#wedding">Weddings</a></li>
+    <li><a href="#loyalty">Rewards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn solid" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <span class="hero-tag">★★★★★ — Award-Winning Luxury Since 1985</span>
+    <h1 class="hero-title">Hotel<br><em>First Crown</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Where Royalty Meets Comfort · Thane, India</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Reserve Your Suite</a>
+      <a href="#experiences" class="btn-outline">Discover Experiences</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('quick-search-bar').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div><span>Explore</span>
+  </div>
+</section>
+
+<div class="quick-search" id="quick-search-bar">
+  <div class="qs-field"><span class="qs-label">Check-In</span><input type="date" id="qsCheckin"></div>
+  <div class="qs-field"><span class="qs-label">Check-Out</span><input type="date" id="qsCheckout"></div>
+  <div class="qs-field"><span class="qs-label">Room Type</span><select><option>Any Room</option><option>Royal Crown Suite</option><option>Emerald Garden Room</option><option>Sapphire View Suite</option><option>Rose Petal Retreat</option></select></div>
+  <div class="qs-field"><span class="qs-label">Guests</span><select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select></div>
+  <button class="qs-btn" onclick="quickSearch()">Check Availability →</button>
+</div>
+
+<section id="about">
+  <div class="about-image-wrap reveal">
+    <div class="about-img-main">🏛</div>
+    <div class="about-img-accent">👑</div>
+    <div class="about-gold-bar"></div>
+  </div>
+  <div class="reveal">
+    <span class="section-label">Our Legacy</span>
+    <h2 class="section-title">A Legacy of<br><em>Unmatched Grandeur</em></h2>
+    <p class="section-desc">Founded in 1985, Hotel First Crown stands as the pinnacle of Indian luxury hospitality. Nestled in the heart of Thane, we blend timeless Indo-Saracenic architecture with modern sophistication — crafting a sanctuary where every guest is treated as royalty.</p>
+    <div class="about-stats">
+      <div class="stat-item"><span class="stat-num">38+</span><span class="stat-label">Years Legacy</span></div>
+      <div class="stat-item"><span class="stat-num">220</span><span class="stat-label">Luxury Rooms</span></div>
+      <div class="stat-item"><span class="stat-num">★ 5</span><span class="stat-label">Star Rated</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms">
+  <div class="rooms-header reveal">
+    <span class="section-label">Accommodations</span>
+    <h2 class="section-title">Rooms &amp; <em>Suites</em></h2>
+    <p class="section-desc">Each space is a masterpiece of design — crafted to indulge the senses and pamper the soul.</p>
+  </div>
+  <div class="rooms-grid reveal">
+    <div class="room-card"><div class="room-bg room-bg-1"></div><div class="room-overlay"></div><div class="room-icon">🛏</div><div class="room-info"><span class="room-type">Signature Suite</span><div class="room-name">Royal Crown Suite</div><div class="room-meta"><span>👤 2 Guests</span><span>📐 120 sqm</span><span>🌆 City View</span></div><div class="room-price">From <strong>₹18,500</strong> / night</div><button class="room-btn" onclick="openBookingModal('Royal Crown Suite',18500)">Book Now</button></div></div>
+    <div class="room-card"><div class="room-bg room-bg-2"></div><div class="room-overlay"></div><div class="room-icon">🌿</div><div class="room-info"><span class="room-type">Garden View</span><div class="room-name">Emerald Garden Room</div><div class="room-meta"><span>👤 2 Guests</span><span>📐 60 sqm</span><span>🌿 Garden</span></div><div class="room-price">From <strong>₹9,200</strong> / night</div><button class="room-btn" onclick="openBookingModal('Emerald Garden Room',9200)">Book Now</button></div></div>
+    <div class="room-card"><div class="room-bg room-bg-3"></div><div class="room-overlay"></div><div class="room-icon">🌊</div><div class="room-info"><span class="room-type">Panorama View</span><div class="room-name">Sapphire View Suite</div><div class="room-meta"><span>👤 2 Guests</span><span>📐 90 sqm</span><span>🌅 Panoramic</span></div><div class="room-price">From <strong>₹14,000</strong> / night</div><button class="room-btn" onclick="openBookingModal('Sapphire View Suite',14000)">Book Now</button></div></div>
+    <div class="room-card"><div class="room-bg room-bg-4"></div><div class="room-overlay"></div><div class="room-icon">🌹</div><div class="room-info"><span class="room-type">Romance Package</span><div class="room-name">Rose Petal Retreat</div><div class="room-meta"><span>👤 2 Guests</span><span>📐 75 sqm</span><span>🌹 Private</span></div><div class="room-price">From <strong>₹12,500</strong> / night</div><button class="room-btn" onclick="openBookingModal('Rose Petal Retreat',12500)">Book Now</button></div></div>
+  </div>
+</section>
+
+<section id="offers">
+  <div class="offers-header reveal">
+    <span class="section-label">Exclusive Deals</span>
+    <h2 class="section-title">Special <em>Offers</em></h2>
+    <p class="section-desc">Handcrafted promotions to make your stay even more extraordinary.</p>
+  </div>
+  <div class="offers-grid reveal">
+    <div class="offer-card"><span class="offer-badge">Save 20%</span><div class="offer-title">Weekend Escape Package</div><p class="offer-desc">20% savings on 2-night weekend stays with complimentary breakfast for two, sparkling wine, and late 2 PM checkout.</p><button class="offer-link" onclick="openBookingModal('Weekend Escape',0)">Book Now →</button></div>
+    <div class="offer-card"><span class="offer-badge">Honeymoon</span><div class="offer-title">Romance in the Crown</div><p class="offer-desc">Rose petal turndown, candlelight dinner, couple's spa, and a private rooftop moment under the stars.</p><button class="offer-link" onclick="openBookingModal('Romance Package',15000)">Book Now →</button></div>
+    <div class="offer-card"><span class="offer-badge">Anniversary</span><div class="offer-title">Celebrate With Us</div><p class="offer-desc">Birthday or anniversary? Complimentary cake, room upgrade, special décor, and priority butler service.</p><button class="offer-link" onclick="openBookingModal('Celebration Package',11000)">Book Now →</button></div>
+    <div class="offer-card"><span class="offer-badge">Business</span><div class="offer-title">Corporate Stay</div><p class="offer-desc">Express check-in, dedicated workspace, high-speed WiFi, meeting room access, and airport transfer.</p><button class="offer-link" onclick="openBookingModal('Corporate Suite',16000)">Book Now →</button></div>
+    <div class="offer-card"><span class="offer-badge">Advance</span><div class="offer-title">Early Bird Privilege</div><p class="offer-desc">Book 30 days ahead and unlock up to 25% savings on any room with flexible modification policy.</p><button class="offer-link" onclick="openBookingModal('Early Bird',8500)">Book Now →</button></div>
+    <div class="offer-card"><span class="offer-badge">Wellness</span><div class="offer-title">Innergise Retreat</div><p class="offer-desc">3-night wellness retreat with daily yoga, Ayurvedic spa, detox dining, and guided meditation.</p><button class="offer-link" onclick="openBookingModal('Wellness Retreat',22000)">Book Now →</button></div>
+  </div>
+</section>
+
+<section id="dining">
+  <div class="dining-inner">
+    <div class="reveal">
+      <span class="section-label">Culinary Excellence</span>
+      <h2 class="section-title">Signature <em>Dining</em></h2>
+      <p class="section-desc">A symphony of flavours — from royal Indian traditions to global Michelin-inspired cuisine. Each plate tells a story of mastery and passion.</p>
+      <ul class="dining-list">
+        <li><div><div class="dl-name">The Crown Table</div><div class="dl-type">All-Day Indian &amp; Continental</div></div><span class="dl-tag">Open 24 Hrs</span></li>
+        <li><div><div class="dl-name">Saffron</div><div class="dl-type">Royal Indian Cuisine</div></div><span class="dl-tag">Dinner Only</span></li>
+        <li><div><div class="dl-name">Azure Sky Lounge</div><div class="dl-type">Rooftop Bar &amp; Tapas</div></div><span class="dl-tag">Evenings</span></li>
+        <li><div><div class="dl-name">The Jade Pavilion</div><div class="dl-type">Pan-Asian Specialities</div></div><span class="dl-tag">Lunch &amp; Dinner</span></li>
+        <li><div><div class="dl-name">La Patisserie</div><div class="dl-type">Artisan Bakery &amp; Afternoon Tea</div></div><span class="dl-tag">7am - 8pm</span></li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="display:inline-block;">Make a Dining Reservation</a>
+    </div>
+    <div class="dining-visual reveal">
+      <div class="dining-img"><div class="dining-img-bg di1"></div><span>🍛</span><span class="dining-label">Saffron</span></div>
+      <div class="dining-img"><div class="dining-img-bg di2"></div><span>🍵</span><span class="dining-label">Patisserie</span></div>
+      <div class="dining-img"><div class="dining-img-bg di3"></div><span>🍸</span><span class="dining-label">Azure Lounge</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <span class="section-label">Visual Tour</span>
+    <h2 class="section-title">Our <em>Gallery</em></h2>
+    <p class="section-desc" style="margin:0 auto;">A glimpse into the world of extraordinary luxury and remarkable detail.</p>
+  </div>
+  <div class="gallery-filter reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="rooms">Rooms</button>
+    <button class="filter-btn" data-filter="dining">Dining</button>
+    <button class="filter-btn" data-filter="spa">Spa</button>
+    <button class="filter-btn" data-filter="events">Events</button>
+    <button class="filter-btn" data-filter="wedding">Weddings</button>
+  </div>
+  <div class="gallery-masonry reveal" id="galleryGrid"></div>
+</section>
+
+<section id="amenities">
+  <div class="reveal" style="text-align:center;">
+    <span class="section-label">World-Class Facilities</span>
+    <h2 class="section-title">Premium <em>Amenities</em></h2>
+  </div>
+  <div class="amenities-grid reveal">
+    <div class="amenity-card"><span class="amenity-icon">🏊</span><div class="amenity-name">Infinity Pool</div><p class="amenity-desc">Heated rooftop pool with panoramic views, 6 AM to midnight.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🧖</span><div class="amenity-name">Crown Spa</div><p class="amenity-desc">Award-winning therapies rooted in ancient Indian healing traditions.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🍽️</span><div class="amenity-name">Fine Dining</div><p class="amenity-desc">Five signature restaurants by award-winning master chefs.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🎭</span><div class="amenity-name">Grand Ballroom</div><p class="amenity-desc">5,000 sq ft premier event space for weddings &amp; corporates.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🏋️</span><div class="amenity-name">Fitness Centre</div><p class="amenity-desc">State-of-the-art gym, yoga studio, and personal trainers 24/7.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🍸</span><div class="amenity-name">Sky Lounge</div><p class="amenity-desc">Rooftop cocktail terrace with craft drinks and city panoramas.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🚗</span><div class="amenity-name">Valet &amp; Limo</div><p class="amenity-desc">Complimentary valet, chauffeur, and luxury airport transfers.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🛎</span><div class="amenity-name">Butler Service</div><p class="amenity-desc">24-hour personal butler tailored to your every wish.</p></div>
+  </div>
+</section>
+
+<!-- <section id="experiences">
+  <div class="exp-header reveal">
+    <span class="section-label">Curated Journeys</span>
+    <h2 class="section-title">Extraordinary <em>Experiences</em></h2>
+    <p class="section-desc" style="margin:0 auto;">Immerse yourself in bespoke moments crafted exclusively for you.</p>
+  </div>
+  <div class="exp-grid reveal">
+    <div class="exp-card"><div class="exp-bg exp-bg-1"></div><div class="exp-overlay"></div><div class="exp-content"><span class="exp-icon">🧘</span><div class="exp-name">Wellness Retreat</div><div class="exp-sub">Mind · Body · Spirit</div></div></div>
+    <div class="exp-card"><div class="exp-bg exp-bg-2"></div><div class="exp-overlay"></div><div class="exp-content"><span class="exp-icon">🍳</span><div class="exp-name">Culinary Masterclass</div><div class="exp-sub">Chef-Guided Sessions</div></div></div>
+    <div class="exp-card"><div class="exp-bg exp-bg-3"></div><div class="exp-overlay"></div><div class="exp-content"><span class="exp-icon">🌙</span><div class="exp-name">Rooftop Stargazing</div><div class="exp-sub">Celestial Evenings</div></div></div>
+    <div class="exp-card"><div class="exp-bg exp-bg-4"></div><div class="exp-overlay"></div><div class="exp-content"><span class="exp-icon">🎎</span><div class="exp-name">Heritage City Walk</div><div class="exp-sub">Cultural Discovery</div></div></div>
+  </div>
+</section> -->
+
+<section id="wedding" style="padding:0;">
+  <div class="wedding-visual reveal">🌸</div>
+  <div class="wedding-text reveal">
+    <span class="section-label">Celebrations</span>
+    <h2 class="section-title">Your Dream<br><em>Wedding</em></h2>
+    <p class="section-desc">Transform your most cherished day into an unforgettable celebration. From intimate ceremonies to grand royal receptions, our expert planners craft flawless events.</p>
+    <ul class="wedding-features">
+      <li><span class="wf-icon">👑</span> Dedicated Royal Wedding Planner</li>
+      <li><span class="wf-icon">🌸</span> Custom floral design &amp; décor</li>
+      <li><span class="wf-icon">🍽</span> Bespoke wedding menu by our chefs</li>
+      <li><span class="wf-icon">🎵</span> Live entertainment arrangements</li>
+      <li><span class="wf-icon">📸</span> Complimentary pre-wedding photoshoot</li>
+      <li><span class="wf-icon">🚗</span> Bridal suite &amp; honeymoon package</li>
+    </ul>
+    <div class="wedding-pkg">
+      <div class="wpkg" onclick="openBookingModal('Silver Wedding',180000)"><div class="wpkg-name">Silver Celebration</div><div class="wpkg-price">From Rs 1,80,000</div></div>
+      <div class="wpkg" onclick="openBookingModal('Royal Wedding',500000)"><div class="wpkg-name">Royal Grand Wedding</div><div class="wpkg-price">From Rs 5,00,000</div></div>
+    </div>
+    <button class="btn-primary" style="margin-top:26px;" onclick="openBookingModal('Wedding Enquiry',0)">Enquire Now</button>
+  </div>
+</section>
+
+
+
+<!-- <section id="wellness">
+  <div class="wellness-inner">
+    <div class="reveal">
+      <span class="section-label">J Wellness Circle</span>
+      <h2 class="section-title">Restore Your <em>Soul</em></h2>
+      <p class="section-desc">Embark on a wellness journey infused with ancient Indian healing energies and modern therapeutic techniques — revitalising your mind, body, and spirit.</p>
+      <blockquote class="wellness-tagline">"Wellness is not a destination — it is a sacred journey back to yourself."</blockquote>
+      <button class="btn-outline" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book a Spa Treatment</button>
+    </div>
+    <div class="wellness-cards reveal">
+      <div class="wellness-card"><span class="wc-icon">🌿</span><div class="wc-name">Ayurvedic Therapies</div><p class="wc-desc">Ancient Indian healing rituals for deep restoration and balance.</p></div>
+      <div class="wellness-card"><span class="wc-icon">🧘</span><div class="wc-name">Yoga &amp; Meditation</div><p class="wc-desc">Daily guided sessions at sunrise overlooking lush gardens.</p></div>
+      <div class="wellness-card"><span class="wc-icon">💆</span><div class="wc-name">Royal Massage</div><p class="wc-desc">Bespoke 90-minute treatments with premium aromatic oils.</p></div>
+      <div class="wellness-card"><span class="wc-icon">♨️</span><div class="wc-name">Hydro Therapy</div><p class="wc-desc">Jet pools, steam caves, and ice fountains for full renewal.</p></div>
+    </div>
+  </div>
+</section> -->
+
+<section id="booking">
+  <div class="booking-inner">
+    <div class="reveal">
+      <span class="section-label">Online Reservations</span>
+      <h2 class="section-title">Book Your<br><em>Royal Stay</em></h2>
+      <p class="section-desc">Best rate guaranteed on direct bookings. Instant confirmation with flexible cancellation.</p>
+      <div class="booking-perks">
+        <div class="bp-item"><span class="tick">✓</span> Free cancellation up to 48 hours</div>
+        <div class="bp-item"><span class="tick">✓</span> Complimentary breakfast for 2</div>
+        <div class="bp-item"><span class="tick">✓</span> Instant email confirmation</div>
+        <div class="bp-item"><span class="tick">✓</span> Earn CrownCoins on direct bookings</div>
+        <div class="bp-item"><span class="tick">✓</span> No booking fees</div>
+      </div>
+    </div>
+    <div class="booking-form reveal">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:300;margin-bottom:26px;color:var(--cream);">Check Availability</h3>
+      <div class="form-row"><label>Full Name</label><input type="text" id="guestName" placeholder="Your Name"></div>
+      <div class="form-row"><label>Email Address</label><input type="email" id="guestEmail" placeholder="your@email.com"></div>
+      <div class="form-row"><label>Phone Number</label><input type="tel" id="guestPhone" placeholder="+91 99999 00000"></div>
+      <div class="form-row form-grid">
+        <div><label>Check-In</label><input type="date" id="checkIn"></div>
+        <div><label>Check-Out</label><input type="date" id="checkOut"></div>
+      </div>
+      <div class="form-row form-grid">
+        <div><label>Room Type</label><select id="roomType"><option value="">Select Room</option><option>Royal Crown Suite</option><option>Emerald Garden Room</option><option>Sapphire View Suite</option><option>Rose Petal Retreat</option></select></div>
+        <div><label>Guests</label><select id="guests"><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select></div>
+      </div>
+      <div class="form-row"><label>Special Requests</label><input type="text" id="special" placeholder="Anniversary, dietary requirements..."></div>
+      <button class="form-submit" onclick="submitBooking()">Check Availability &amp; Book</button>
+    </div>
+  </div>
+</section>
+
+<section id="payment">
+  <div class="payment-inner">
+    <div class="reveal" style="text-align:center;">
+      <span class="section-label">Secure Checkout</span>
+      <h2 class="section-title">Complete Your <em>Payment</em></h2>
+      <p class="section-desc" style="margin:0 auto;">Multiple secure payment options, protected by 256-bit SSL encryption.</p>
+    </div>
+    <div class="order-summary reveal" id="orderSummary">
+      <div class="os-title">Booking Summary</div>
+      <div class="os-row"><span>Room</span><span id="sumRoom">-</span></div>
+      <div class="os-row"><span>Check-In</span><span id="sumCi">-</span></div>
+      <div class="os-row"><span>Check-Out</span><span id="sumCo">-</span></div>
+      <div class="os-row"><span>Nights</span><span id="sumNights">-</span></div>
+      <div class="os-row"><span>GST (18%)</span><span id="sumGst">-</span></div>
+      <div class="os-row total"><span>Total</span><span id="sumTotal">-</span></div>
+    </div>
+    <div class="payment-methods reveal">
+      <div class="pay-card active" onclick="selectPayment(this,'card')"><span class="pay-icon">💳</span><div class="pay-name">Credit / Debit Card</div><div class="pay-desc">Visa · Mastercard · Amex · RuPay</div></div>
+      <div class="pay-card" onclick="selectPayment(this,'upi')"><span class="pay-icon">📱</span><div class="pay-name">UPI Payment</div><div class="pay-desc">GPay · PhonePe · Paytm · BHIM</div></div>
+      <div class="pay-card" onclick="selectPayment(this,'netbanking')"><span class="pay-icon">🏦</span><div class="pay-name">Net Banking</div><div class="pay-desc">All major Indian banks</div></div>
+    </div>
+    <div class="payment-form-wrap visible reveal" id="paymentFormWrap">
+      <div id="cardForm">
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;color:var(--cream);margin-bottom:22px;">Card Details</h4>
+        <div class="form-row"><label>Card Number</label><input type="text" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)"></div>
+        <div class="form-row form-grid"><div><label>Expiry</label><input type="text" id="cardExp" placeholder="MM / YY" maxlength="7"></div><div><label>CVV</label><input type="password" id="cardCvv" placeholder="..." maxlength="3"></div></div>
+        <div class="form-row"><label>Cardholder Name</label><input type="text" id="cardName" placeholder="Name as on card"></div>
+      </div>
+      <div id="upiForm" style="display:none;">
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;color:var(--cream);margin-bottom:22px;">UPI Details</h4>
+        <div class="form-row"><label>UPI ID</label><input type="text" id="upiId" placeholder="yourname@upi"></div>
+      </div>
+      <div id="netBankingForm" style="display:none;">
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;color:var(--cream);margin-bottom:22px;">Select Bank</h4>
+        <div class="form-row"><label>Bank</label><select><option value="">Choose Bank</option><option>HDFC Bank</option><option>ICICI Bank</option><option>State Bank of India</option><option>Axis Bank</option><option>Kotak Mahindra Bank</option></select></div>
+      </div>
+      <div class="pay-secure">🔒  Your payment is secured with 256-bit SSL · PCI DSS Compliant</div>
+      <button class="form-submit" onclick="processPayment()" style="margin-top:16px;">Complete Secure Payment</button>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="testi-header reveal">
+    <span class="section-label">Guest Voices</span>
+    <h2 class="section-title">What Our Guests <em>Say</em></h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"An experience that transcends luxury. The Royal Crown Suite was beyond anything I've ever experienced. The butler service, attention to detail — absolutely impeccable."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-country">Mumbai, India</div><div class="testi-verified">✓ Verified Gold Member</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"We celebrated our anniversary here and it was absolutely magical. Every detail — from rose petal decor to the private rooftop dinner — was thoughtfully perfect."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya &amp; Rahul Sharma</div><div class="testi-country">Pune, India</div><div class="testi-verified">✓ Verified Silver Member</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The Crown Spa is world-class. I've stayed at luxury hotels across Asia — Hotel First Crown stands at the very top for warmth of service and cultural depth."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sarah Chen</div><div class="testi-country">Singapore</div><div class="testi-verified">✓ Verified Platinum Member</div></div></div></div>
+  </div>
+</section>
+
+<section id="newsletter" style="padding:64px 60px;">
+  <div class="nl-inner reveal">
+    <h2>Exclusive Offers &amp; Stories<br>Delivered to You</h2>
+    <p>Subscribe for priority access to seasonal offers, curated experiences, member-only promotions, and our journal of luxury travel inspiration.</p>
+    <div class="nl-form"><input class="nl-input" type="email" id="nlEmail" placeholder="Enter your email address"><button class="nl-submit" onclick="subscribeNewsletter()">Subscribe →</button></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="reveal">
+    <span class="section-label">Find Us</span>
+    <h2 class="section-title">Get In <em>Touch</em></h2>
+    <p class="section-desc">Our concierge team is available round the clock to assist with reservations, inquiries, and everything your heart desires.</p>
+    <br><br>
+    <div class="contact-detail"><div class="contact-icon">📍</div><div class="contact-text"><h4>Address</h4><p>1, Crown Boulevard, Luxury Lane<br>Thane, Maharashtra 400 601</p></div></div>
+    <div class="contact-detail"><div class="contact-icon">📞</div><div class="contact-text"><h4>Reservations</h4><p>+91 22 6900 7777<br>Toll Free: 1800-CROWN-HFC</p></div></div>
+    <div class="contact-detail"><div class="contact-icon">✉️</div><div class="contact-text"><h4>Email</h4><p>reservations@hotelfirstcrown.com<br>concierge@hotelfirstcrown.com</p></div></div>
+    <div class="contact-detail"><div class="contact-icon">🕐</div><div class="contact-text"><h4>Hours</h4><p>Front Desk: 24 / 7 / 365<br>Concierge: 7:00 AM – 11:00 PM</p></div></div>
+    <div class="social-links"><a class="sl-btn" href="#">📘</a><a class="sl-btn" href="#">📷</a><a class="sl-btn" href="#">🐦</a><a class="sl-btn" href="#">▶️</a><a class="sl-btn" href="#">💼</a></div>
+  </div>
+  <div class="reveal">
+    <div class="booking-form" style="padding-top:38px;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:300;margin-bottom:26px;color:var(--cream);">Send a Message</h3>
+      <div class="form-row"><label>Your Name</label><input type="text" id="cName" placeholder="Your full name"></div>
+      <div class="form-row"><label>Email</label><input type="email" id="cEmail" placeholder="your@email.com"></div>
+      <div class="form-row"><label>Subject</label><select><option>General Inquiry</option><option>Room Reservation</option><option>Event Planning</option><option>Wedding</option><option>Corporate</option><option>Feedback</option></select></div>
+      <div class="form-row"><label>Message</label><textarea id="cMsg" style="height:108px;resize:vertical;" placeholder="How may we assist you?"></textarea></div>
+      <button class="form-submit" onclick="sendMessage()">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand"><a class="nav-logo" href="#hero">FIRST <span>CROWN</span></a><p>A sanctuary of luxury and refinement since 1985. Where every guest is royalty and every moment a timeless memory.</p><div class="footer-awards"><span class="award-badge">🏆 Best Luxury 2024</span><span class="award-badge">⭐ 5-Star Certified</span><span class="award-badge">🌍 Tripadvisor Excellence</span></div></div>
+  <div class="footer-col"><h5>Explore</h5><ul><li><a href="#rooms">Rooms &amp; Suites</a></li><li><a href="#dining">Fine Dining</a></li><li><a href="#amenities">Amenities</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#experiences">Experiences</a></li></ul></div>
+  <div class="footer-col"><h5>Services</h5><ul><li><a href="#wedding">Weddings</a></li><li><a href="#wellness">Spa &amp; Wellness</a></li><li><a href="#offers">Special Offers</a></li><li><a href="#">Corporate Events</a></li><li><a href="#">Gift Hampers</a></li></ul></div>
+  <div class="footer-col"><h5>Rewards</h5><ul><li><a href="#loyalty">Crown Rewards Club</a></li><li><a href="#loyalty">Earn CrownCoins</a></li><li><a href="#loyalty">Redeem Points</a></li><li><a href="#newsletter">Newsletter</a></li><li><a href="#contact">Contact Us</a></li></ul></div>
+</footer>
+<div class="footer-bottom"><p>© 2025 Hotel First Crown. All rights reserved.</p><p>Privacy Policy · Terms of Service · Cookie Policy</p></div>
+
+<div class="modal" id="bookingModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="section-label">Quick Reservation</span>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--cream);margin-bottom:5px;" id="modalRoomName">Royal Crown Suite</h3>
+    <p style="font-size:0.68rem;color:var(--gold);letter-spacing:2px;margin-bottom:26px;" id="modalRoomPrice">From Rs 18,500 / night</p>
+    <div class="form-row"><label>Full Name</label><input type="text" id="modalName" placeholder="Your Name"></div>
+    <div class="form-row"><label>Email</label><input type="email" id="modalEmail" placeholder="your@email.com"></div>
+    <div class="form-row form-grid"><div><label>Check-In</label><input type="date" id="modalCheckin"></div><div><label>Check-Out</label><input type="date" id="modalCheckout"></div></div>
+    <button class="form-submit" onclick="confirmModalBooking()">Confirm Reservation</button>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const galleryData=[
+  {cat:'rooms',h:220,emoji:'🛏',label:'Royal Suite',g:'linear-gradient(135deg,#3d2a18,#7a5535)'},
+  {cat:'dining',h:170,emoji:'🍽',label:'Crown Table',g:'linear-gradient(135deg,#1e2d10,#3d5a1a)'},
+  {cat:'spa',h:200,emoji:'🌿',label:'Serenity Spa',g:'linear-gradient(135deg,#183d2a,#357a55)'},
+  {cat:'rooms',h:255,emoji:'🛁',label:'Garden Room',g:'linear-gradient(135deg,#2a1e3d,#553570)'},
+  {cat:'events',h:178,emoji:'🎭',label:'Grand Ballroom',g:'linear-gradient(135deg,#3d2a18,#5a4025)'},
+  {cat:'dining',h:238,emoji:'🥂',label:'Azure Sky Bar',g:'linear-gradient(135deg,#18253d,#35527a)'},
+  {cat:'rooms',h:188,emoji:'🌊',label:'Sapphire Suite',g:'linear-gradient(135deg,#18253d,#1a3a7a)'},
+  {cat:'spa',h:208,emoji:'🧖',label:'Wellness Pool',g:'linear-gradient(135deg,#1e3d0d,#357a1a)'},
+  {cat:'wedding',h:258,emoji:'💒',label:'Wedding Venue',g:'linear-gradient(135deg,#3d0a1a,#7a1535)'},
+  {cat:'rooms',h:228,emoji:'👑',label:'Presidential Suite',g:'linear-gradient(135deg,#3d2a10,#7a5520)'},
+  {cat:'dining',h:188,emoji:'🍰',label:'Patisserie',g:'linear-gradient(135deg,#2a1a3d,#5a3570)'},
+  {cat:'spa',h:168,emoji:'🌺',label:'Aromatherapy',g:'linear-gradient(135deg,#3d1a1a,#7a3535)'},
+  {cat:'wedding',h:198,emoji:'🌸',label:'Bridal Suite',g:'linear-gradient(135deg,#2d0a20,#5c2040)'},
+  {cat:'events',h:158,emoji:'🏆',label:'Awards Hall',g:'linear-gradient(135deg,#2a2010,#5a4520)'},
+  {cat:'rooms',h:178,emoji:'🌹',label:'Rose Retreat',g:'linear-gradient(135deg,#3d1020,#7a2040)'},
+  {cat:'dining',h:218,emoji:'🫖',label:'Afternoon Tea',g:'linear-gradient(135deg,#1e2d18,#3a5a28)'},
+];
+const grid=document.getElementById('galleryGrid');
+galleryData.forEach(item=>{
+  const div=document.createElement('div');div.className='gallery-item';div.dataset.cat=item.cat;
+  div.innerHTML='<div class="gallery-item-inner g-box" style="height:'+item.h+'px;background:'+item.g+';"><div style="text-align:center;"><div style="font-size:2.4rem;margin-bottom:7px;">'+item.emoji+'</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:0.8rem;letter-spacing:2px;color:rgba(201,168,76,0.62);text-transform:uppercase;">'+item.label+'</div></div></div><div class="g-overlay"><span style="font-size:1.9rem;color:var(--gold);">🔍</span></div>';
+  grid.appendChild(div);
+});
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.gallery-item').forEach(item=>{item.style.display=(f==='all'||item.dataset.cat===f)?'block':'none';});
+  });
+});
+
+let targetCoins=2840;
+function animateCoins(){let c=0;const step=Math.ceil(targetCoins/60);const t=setInterval(()=>{c=Math.min(c+step,targetCoins);document.getElementById('coinDisplay').textContent=c.toLocaleString('en-IN');if(c>=targetCoins)clearInterval(t);},30);}
+const loyaltyObs=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){animateCoins();loyaltyObs.disconnect();}},{threshold:0.3});
+loyaltyObs.observe(document.getElementById('loyalty'));
+
+function joinLoyalty(){showNotif('Welcome to Crown Rewards Club! Check your email to complete registration.');}
+
+let currentPayMethod='card';
+function selectPayment(el,method){document.querySelectorAll('.pay-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');currentPayMethod=method;document.getElementById('cardForm').style.display=method==='card'?'block':'none';document.getElementById('upiForm').style.display=method==='upi'?'block':'none';document.getElementById('netBankingForm').style.display=method==='netbanking'?'block':'none';}
+function formatCard(input){let v=input.value.replace(/\D/g,'').substring(0,16);input.value=v.replace(/(.{4})/g,'$1 ').trim();}
+
+function quickSearch(){const ci=document.getElementById('qsCheckin').value;const co=document.getElementById('qsCheckout').value;if(!ci||!co){showNotif('Please select your check-in and check-out dates.');return;}document.getElementById('booking').scrollIntoView({behavior:'smooth'});document.getElementById('checkIn').value=ci;document.getElementById('checkOut').value=co;showNotif('Dates applied! Complete your reservation below.');}
+
+let bookingData={};
+function submitBooking(){
+  const name=document.getElementById('guestName').value.trim();const email=document.getElementById('guestEmail').value.trim();const ci=document.getElementById('checkIn').value;const co=document.getElementById('checkOut').value;const rt=document.getElementById('roomType').value;
+  if(!name||!email||!ci||!co||!rt){showNotif('Please fill all required fields.');return;}
+  if(new Date(co)<=new Date(ci)){showNotif('Check-out must be after check-in.');return;}
+  const nights=Math.round((new Date(co)-new Date(ci))/(1000*60*60*24));
+  const rates={'Royal Crown Suite':18500,'Emerald Garden Room':9200,'Sapphire View Suite':14000,'Rose Petal Retreat':12500};
+  const base=(rates[rt]||10000)*nights;const gst=Math.round(base*0.18);const total=base+gst;
+  bookingData={name,email,ci,co,rt,nights,base,gst,total};
+  const os=document.getElementById('orderSummary');os.style.display='block';
+  document.getElementById('sumRoom').textContent=rt;document.getElementById('sumCi').textContent=ci;document.getElementById('sumCo').textContent=co;
+  document.getElementById('sumNights').textContent=nights+' Night'+(nights>1?'s':'');
+  document.getElementById('sumGst').textContent='Rs '+gst.toLocaleString('en-IN');document.getElementById('sumTotal').textContent='Rs '+total.toLocaleString('en-IN');
+  showNotif(nights+' night(s) for '+rt+' - Proceed to payment below');
+  setTimeout(()=>document.getElementById('payment').scrollIntoView({behavior:'smooth'}),1000);
+}
+
+function openBookingModal(room,price){document.getElementById('modalRoomName').textContent=room;document.getElementById('modalRoomPrice').textContent=price>0?'From Rs '+price.toLocaleString('en-IN')+' / night':'Enquiry Form';document.getElementById('bookingModal').classList.add('open');}
+function closeModal(){document.getElementById('bookingModal').classList.remove('open');}
+function confirmModalBooking(){const name=document.getElementById('modalName').value.trim();const email=document.getElementById('modalEmail').value.trim();if(!name||!email){showNotif('Please enter your name and email.');return;}closeModal();showNotif('Reservation confirmed for '+name+'! Confirmation headed to '+email+'.');setTimeout(()=>document.getElementById('payment').scrollIntoView({behavior:'smooth'}),1400);}
+
+function processPayment(){if(currentPayMethod==='card'){const num=document.getElementById('cardNum').value.replace(/\s/g,'');if(num.length<16){showNotif('Please enter a valid 16-digit card number.');return;}if(!document.getElementById('cardName').value.trim()){showNotif('Please enter cardholder name.');return;}}else if(currentPayMethod==='upi'){if(!document.getElementById('upiId').value.includes('@')){showNotif('Please enter a valid UPI ID.');return;}}showNotif('Processing payment securely... Confirmation will arrive shortly!');}
+
+function subscribeNewsletter(){const e=document.getElementById('nlEmail').value.trim();if(!e||!e.includes('@')){showNotif('Please enter a valid email address.');return;}document.getElementById('nlEmail').value='';showNotif('Subscribed! Exclusive offers headed to '+e);}
+
+function sendMessage(){const n=document.getElementById('cName').value.trim();const e=document.getElementById('cEmail').value.trim();const m=document.getElementById('cMsg').value.trim();if(!n||!e||!m){showNotif('Please fill all fields.');return;}showNotif('Message sent! Our concierge will reply to '+e+' within 2 hours.');['cName','cEmail','cMsg'].forEach(id=>document.getElementById(id).value='');}
+
+function showNotif(msg){const n=document.getElementById('notif');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),4500);}
+
+(function(){const today=new Date();const tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);const fmt=d=>d.toISOString().split('T')[0];['checkIn','modalCheckin','qsCheckin'].forEach(id=>{const el=document.getElementById(id);if(el)el.min=fmt(today);});['checkOut','modalCheckout','qsCheckout'].forEach(id=>{const el=document.getElementById(id);if(el)el.min=fmt(tomorrow);});})();
+document.getElementById('bookingModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+</script>
+</body>
+</html>
